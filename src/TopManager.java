@@ -2,7 +2,7 @@ public class TopManager implements Employee{
     private double salary;
     private double sufficientIncome = 10000000;
     private double bonus = 2.50;
-    Company company;
+    private Company company;
 
     public void setMonthSalary(double salary, Company company){
         this.salary = salary;

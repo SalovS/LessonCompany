@@ -24,11 +24,11 @@ public class Main {
         company.hireAll(topManagers);
         DecimalFormat dF = new DecimalFormat("###,###");
 
-        System.out.println("Список зарплат по убыванию");
+        System.out.println("Список зарплат по возрастанию");
         for(Employee employee: company.getLowestSalaryStaff(30)) {
             System.out.println(dF.format(employee.getMonthSalary()) + " руб.");
         }
-        System.out.println("Список зарплат по возрастанию");
+        System.out.println("Список зарплат по убыванию");
         for(Employee employee: company.getTopSalaryStaff(15)) {
             System.out.println(dF.format(employee.getMonthSalary()) + " руб.");
         }
@@ -39,18 +39,18 @@ public class Main {
             company.fire(i);
         }
 
-        System.out.println("Список зарплат по убыванию");
+        System.out.println("Список зарплат по возрастанию");
         for(Employee employee: company.getLowestSalaryStaff(30)) {
             System.out.println(dF.format(employee.getMonthSalary()) + " руб.");
         }
-        System.out.println("Список зарплат по возрастанию");
+        System.out.println("Список зарплат по убыванию");
         for(Employee employee: company.getTopSalaryStaff(15)) {
             System.out.println(dF.format(employee.getMonthSalary()) + " руб.");
         }
         System.out.println("-----------------");
 
         company.setIncome(7000000);
-        System.out.println("Список зарплат по возрастанию");
+        System.out.println("Список зарплат по убыванию");
         for(Employee employee: company.getTopSalaryStaff(15)) {
             System.out.println(dF.format(employee.getMonthSalary()) + " руб.");
         }

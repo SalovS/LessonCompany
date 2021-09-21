@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Company {
     List<Employee> employees = new ArrayList<>();
@@ -29,50 +26,35 @@ public class Company {
     }
 
     public void fire(int index){
-        if(index < 0){
-            employees.remove(0);
-        }
-        if(index >= employees.size()) {
-            employees.remove(employees.size() - 1);
+        if(index < 0 || index >= employees.size()) {
+            printError();
         }else {
             employees.remove(index);
         }
     }
 
+    private void printError(){
+        try {
+            throw new inputException("Невозможно уволить сотрудника под этим индексом");
+        } catch (inputException e) {
+        }
+    }
+
 
     public List <Employee> getTopSalaryStaff(int count){
-        sortStaff();
-        int quantity = checkCount(count);
-        List<Employee> result = new ArrayList<>();
-        for(int i = employees.size() - 1; i > employees.size() - 1 - quantity; i--) {
-            result.add(employees.get(i));
-        }
-        return result;
+        return employees.stream().sorted((o1,o2) -> {
+            if(o1.getMonthSalary() == o2.getMonthSalary()){
+                return 0;
+            }else if(o1.getMonthSalary() < o2.getMonthSalary()){
+                return 1;
+            }else{
+                return -1;
+            }
+        }).limit(count).collect(Collectors.toList());
     }
 
     public List <Employee> getLowestSalaryStaff(int count) {
-        sortStaff();
-        int quantity = checkCount(count);
-        List<Employee> result = new ArrayList<>();
-        for(int i = 0; i < quantity; i++) {
-            result.add(employees.get(i));
-        }
-        return result;
-    }
-
-    private void sortStaff(){
-        Comparator<Employee> comparator = Comparator.comparing(employees -> employees.getMonthSalary());
-        Stream<Employee> resultStream = employees.stream().sorted(comparator);
-        employees = resultStream.collect(Collectors.toList());
-    }
-
-    private int checkCount(int count){
-        if(count < 0){
-            return 0;
-        }
-        if(count > employees.size()){
-            return employees.size();
-        }
-        return count;
+        return employees.stream().sorted(Comparator.comparing(employees ->
+                employees.getMonthSalary())).limit(count).collect(Collectors.toList());
     }
 }
